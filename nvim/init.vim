@@ -1,10 +1,5 @@
 call plug#begin('~/.config/nvim/plugged')
-" Use release branch
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Or latest tag
-" Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
-" Or build from source code by use yarn: https://yarnpkg.com
-" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'morhetz/gruvbox'
 
@@ -16,10 +11,39 @@ Plug 'nvim-telescope/telescope-file-browser.nvim'
 
 Plug 'prettier/vim-prettier', {'do': 'yarn install'}
 
+Plug 'vim-airline/vim-airline'
+
+Plug 'jiangmiao/auto-pairs'
+
 call plug#end() "테마 변경
 let g:gruvbox_contrast_dark="hard"
 set background=dark
 autocmd vimenter * colorscheme gruvbox
+
+"general setting
+set encoding=utf-8
+set shiftwidth=2
+set tabstop=2
+set number
+
+"coc setting
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+nmap <silent> <A-Cr> <Plug>(coc-codeaction-cursor)
 
 "nerdtree 단축키 설정
 nnoremap <leader>n :NERDTreeFocus<CR>
@@ -27,4 +51,4 @@ nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 
 "nvim 단축키 설정
-map <Tab-Space> :Prettier<CR>
+map <Tab> :Prettier<CR>
