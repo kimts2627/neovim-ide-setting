@@ -1,9 +1,10 @@
 call plug#begin('~/.config/nvim/plugged')
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'morhetz/gruvbox'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 Plug 'preservim/nerdtree'
+Plug 'ryanoasis/vim-devicons'
 
 Plug 'mattn/emmet-vim'
 
@@ -11,14 +12,11 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope-live-grep-args.nvim'
 
-Plug 'prettier/vim-prettier', {'do': 'yarn install'}
-
 Plug 'vim-airline/vim-airline'
 
 Plug 'jiangmiao/auto-pairs'
 
 Plug 'kubejm/jest.nvim'
-
 
 "Git
 Plug 'akinsho/git-conflict.nvim'
@@ -26,15 +24,19 @@ Plug 'sindrets/diffview.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 
-call plug#end() "테마 변경
+call plug#end() 
+
+"테마 변경
 let g:gruvbox_contrast_dark="hard"
 set background=dark
-autocmd vimenter * colorscheme gruvbox
+autocmd vimenter * colorscheme tokyonight
+
 "general setting
 set encoding=utf-8
 set shiftwidth=2
 set tabstop=2
 set number
+set guifont=DroidSansMono\ Nerd\ Font:h11
 
 "coc setting
 inoremap <silent><expr> <TAB>
@@ -48,6 +50,7 @@ inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
+set guifont=<FONT_NAME>:h<FONT_SIZE>
 function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
@@ -60,11 +63,13 @@ nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 
+" Start NERDTree when Vim is started without file arguments.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+
 " Telescope 단축키 설정.
 nnoremap <C-p> :Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
-"nvim 단축키 설정
-map <Tab> :Prettier<CR>
