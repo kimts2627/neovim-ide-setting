@@ -23,13 +23,11 @@ Plug 'akinsho/git-conflict.nvim'
 Plug 'sindrets/diffview.nvim'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-
 call plug#end() 
 
 "테마 변경
-let g:gruvbox_contrast_dark="hard"
 set background=dark
-autocmd vimenter * colorscheme tokyonight
+autocmd vimenter * colorscheme tokyonight-night
 
 "general setting
 set encoding=utf-8
@@ -37,6 +35,9 @@ set shiftwidth=2
 set tabstop=2
 set number
 set guifont=DroidSansMono\ Nerd\ Font:h11
+
+"nvim 단축키 설정
+map <Tab> 
 
 "coc setting
 inoremap <silent><expr> <TAB>
@@ -63,7 +64,7 @@ nnoremap <leader>n :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 
-" Start NERDTree when Vim is started without file arguments.
+"nerdtree 자동 오픈
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
 
@@ -72,4 +73,3 @@ nnoremap <C-p> :Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
