@@ -35,9 +35,10 @@ set shiftwidth=2
 set tabstop=2
 set number
 set guifont=DroidSansMono\ Nerd\ Font:h11
+set autochdir
 
 "nvim 단축키 설정
-map <Tab> 
+map <Tab> <C-W>W:cd %:p:h<CR>:<CR>
 
 "coc setting
 inoremap <silent><expr> <TAB>
@@ -73,3 +74,4 @@ nnoremap <C-p> :Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
